@@ -49,6 +49,16 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
 #define PT_DEL LT(LAYER_NAV, KC_DEL)
 
+#define OPT_L A(KC_LEFT) // MOVE CURSOR TO BEGINNING OF WORD
+#define OPT_R A(KC_RIGHT) // MOVE CURSOR TO END OF WORD
+#define KC_LSTR G(KC_LEFT) // MOVE CURSOR TO START OF LINE
+#define KC_LEND G(KC_RIGHT) // MOVE CURSOR TO END OF LINE
+#define KC_CPDN LSA(KC_DOWN) // COPY LINE DOWN
+#define KC_TERM C(KC_GRV) // OPEN VS CODE TERMINAL
+#define KC_CNSL LAG(KC_K) // OPEN FIREFOX TERMINAL
+#define KC_SALL LCS(KC_L) // SELECT ALL INSTANCES OF SELECTION
+#define KC_RELD LSG(KC_R) // HARD REFRESH IN BROWSER
+
 #ifndef POINTING_DEVICE_ENABLE
 #    define DRGSCRL KC_NO
 #    define DPI_MOD KC_NO
@@ -77,14 +87,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX,  KC_GRV,   OPT_L,   KC_UP,   OPT_R, KC_RELD,    KC_LPRN, KC_RPRN, KC_EXLM, SS_ARRW, SS_FUNC, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  XXXXXXX, XXXXXXX, _______,    XXXXXXX, _______,
-                                           XXXXXXX, XXXXXXX,    XXXXXXX
+                                  _______, _______, _______,    XXXXXXX, _______,
+                                           _______, XXXXXXX,    _______
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -159,3 +169,35 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // Forward-declare this helper function since it is defined in rgb_matrix.c.
 void rgb_matrix_update_pwm_buffers(void);
 #endif
+
+/**
+ * // CODE LAYER
+#define OPT_L A(KC_LEFT) // MOVE CURSOR TO BEGINNING OF WORD
+#define OPT_R A(KC_RIGHT) // MOVE CURSOR TO END OF WORD
+#define KC_LSTR G(KC_LEFT) // MOVE CURSOR TO START OF LINE
+#define KC_LEND G(KC_RIGHT) // MOVE CURSOR TO END OF LINE
+#define KC_CPDN LSA(KC_DOWN) // COPY LINE DOWN
+#define KC_TERM C(KC_GRV) // OPEN VS CODE TERMINAL
+#define KC_CNSL LAG(KC_K) // OPEN FIREFOX TERMINAL
+#define KC_SALL LCS(KC_L) // SELECT ALL INSTANCES OF SELECTION
+#define KC_RELD LSG(KC_R) // HARD REFRESH IN BROWSER
+
+
+  [LAYER_CODE] = LAYOUT(
+  // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
+       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
+  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
+       XXXXXXX,  KC_GRV,   OPT_L,   KC_UP,   OPT_R, KC_RELD,    KC_LPRN, KC_RPRN, KC_EXLM, SS_ARRW, SS_FUNC, XXXXXXX,
+  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
+       XXXXXXX, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX,
+  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
+       XXXXXXX, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
+  // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
+                                  _______, _______, _______,    XXXXXXX, _______,
+                                           _______, XXXXXXX,    _______
+  //                            ╰───────────────────────────╯ ╰──────────────────╯
+  ),
+ *
+ *
+ *
+ */
