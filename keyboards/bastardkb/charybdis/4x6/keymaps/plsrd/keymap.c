@@ -179,12 +179,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SS_ARRW:
       if (record->event.pressed) {
-        SEND_STRING("=>")
+        SEND_STRING("=>");
       };
       return false; // Skip all further processing of this key
     case SS_FUNC:
       if (record->event.pressed) {
-        SEND_STRING("()=>{}")
+        SEND_STRING("()=>{}");
       }
       return false; //
     default:
