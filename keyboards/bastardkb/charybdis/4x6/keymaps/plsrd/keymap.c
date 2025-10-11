@@ -43,7 +43,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #endif     // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 #define LOWER MO(LAYER_SYMBOL)
-#define RAISE MO(LAYER_NAV)
+#define RAISE MO(LAYER_NAV)-
 #define PT_Z LT(LAYER_POINTER, KC_Z)
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
@@ -78,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_LSFT,    PT_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_LALT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  KC_LGUI, PT_BSPC,  KC_DEL,    XXXXXXX,  KC_ENT,
-                                           KC_LALT, KC_BSPC,    XXXXXXX
+                                  KC_LGUI, PT_BSPC,  PT_DEL,    XXXXXXX,  KC_ENT,
+                                           KC_LALT, MS_BTN1,    XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX,  KC_GRV,   OPT_L,   KC_UP,   OPT_R, KC_RELD,    KC_LPRN, KC_RPRN, KC_EXLM, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX,
+       CW_TOGG, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -170,34 +170,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void rgb_matrix_update_pwm_buffers(void);
 #endif
 
-/**
- * // CODE LAYER
-#define OPT_L A(KC_LEFT) // MOVE CURSOR TO BEGINNING OF WORD
-#define OPT_R A(KC_RIGHT) // MOVE CURSOR TO END OF WORD
-#define KC_LSTR G(KC_LEFT) // MOVE CURSOR TO START OF LINE
-#define KC_LEND G(KC_RIGHT) // MOVE CURSOR TO END OF LINE
-#define KC_CPDN LSA(KC_DOWN) // COPY LINE DOWN
-#define KC_TERM C(KC_GRV) // OPEN VS CODE TERMINAL
-#define KC_CNSL LAG(KC_K) // OPEN FIREFOX TERMINAL
-#define KC_SALL LCS(KC_L) // SELECT ALL INSTANCES OF SELECTION
-#define KC_RELD LSG(KC_R) // HARD REFRESH IN BROWSER
 
-
-  [LAYER_CODE] = LAYOUT(
-  // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
-  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX,  KC_GRV,   OPT_L,   KC_UP,   OPT_R, KC_RELD,    KC_LPRN, KC_RPRN, KC_EXLM, SS_ARRW, SS_FUNC, XXXXXXX,
-  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX,
-  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
-  // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  _______, _______, _______,    XXXXXXX, _______,
-                                           _______, XXXXXXX,    _______
-  //                            ╰───────────────────────────╯ ╰──────────────────╯
-  ),
- *
- *
- *
- */
