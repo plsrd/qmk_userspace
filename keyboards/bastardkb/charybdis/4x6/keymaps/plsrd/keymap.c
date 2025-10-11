@@ -48,7 +48,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #endif     // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 #define LOWER MO(LAYER_SYMBOL)
-#define RAISE MO(LAYER_NAV)-
+#define RAISE MO(LAYER_NAV)
 #define PT_Z LT(LAYER_POINTER, KC_Z)
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
