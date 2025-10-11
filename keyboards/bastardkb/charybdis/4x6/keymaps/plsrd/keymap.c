@@ -27,6 +27,11 @@ enum charybdis_keymap_layers {
     LAYER_POINTER
 };
 
+enum my_keycodes {
+  SS_ARRW = SAFE_RANGE,
+  SS_FUNC
+};
+
 /** \brief Automatically enable sniping-mode on the pointer layer. */
 #define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_POINTER
 
@@ -87,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX,  KC_GRV,   OPT_L,   KC_UP,   OPT_R, KC_RELD,    KC_LPRN, KC_RPRN, KC_EXLM, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX,  KC_GRV,   OPT_L,   KC_UP,   OPT_R, KC_RELD,    KC_LPRN, KC_RPRN, KC_EXLM, SS_ARRW, SS_FUNC, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       CW_TOGG, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX,
+       XXXXXXX, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -170,4 +175,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void rgb_matrix_update_pwm_buffers(void);
 #endif
 
-
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case SS_ARRW:
+      if (record->event.pressed) {
+        SEND_STRING('=>')
+      };
+      return false; // Skip all further processing of this key
+    case SS_FUNC:
+      if (record->event.pressed) {
+        SEND_STRING('()=>{}')
+      }
+      return false; //
+    default:
+      return true; // Process all other keycodes normally
+  }
+}
