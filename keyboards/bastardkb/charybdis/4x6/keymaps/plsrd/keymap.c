@@ -53,6 +53,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
 #define PT_DEL LT(LAYER_NAV, KC_DEL)
+#define MT_ENT LGUI_T(KC_ENT)
 
 #define OPT_L A(KC_LEFT) // MOVE CURSOR TO BEGINNING OF WORD
 #define OPT_R A(KC_RIGHT) // MOVE CURSOR TO END OF WORD
@@ -83,8 +84,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_LSFT,    PT_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_LALT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  KC_LGUI, PT_BSPC,  PT_DEL,    XXXXXXX,  KC_ENT,
-                                           KC_LALT, KC_BTN1,    XXXXXXX
+                                   MT_ENT, PT_BSPC,  PT_DEL,    XXXXXXX,  KC_ENT,
+                                           KC_LALT, MS_BTN1,    XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
