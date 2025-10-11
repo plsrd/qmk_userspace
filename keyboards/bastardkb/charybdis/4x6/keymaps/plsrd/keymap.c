@@ -55,6 +55,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
 #define PT_DEL LT(LAYER_NAV, KC_DEL)
 #define MT_ENT LGUI_T(KC_ENT)
+#define MT_CLIK LALT_T(KC_BTN2)
 
 #define OPT_L A(KC_LEFT) // MOVE CURSOR TO BEGINNING OF WORD
 #define OPT_R A(KC_RIGHT) // MOVE CURSOR TO END OF WORD
@@ -70,6 +71,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define KC_BNAV G(KC_LBRC)
 #define KC_FNAV G(KC_RBRC)
 #define WIN_TOG G(KC_TAB)
+#define CMD_CLK G(KC_BTN1)
+#define ALT_CLK A(KC_BTN1)
 
 
 #ifndef POINTING_DEVICE_ENABLE
@@ -89,10 +92,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_LSFT,    PT_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_LALT,
+       KC_LSFT,    PT_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                   MT_ENT, PT_BSPC,  PT_DEL,    XXXXXXX,  KC_ENT,
-                                           KC_LALT, MS_BTN1,    XXXXXXX
+                                   MT_ENT, PT_BSPC,  PT_DEL,     KC_ENT,  KC_SPC,
+                                           MT_CLIK, MS_BTN1,    KC_LGUI,
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -115,13 +118,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
         KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, KC_WBAK, XXXXXXX, KC_WFWD, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, WIN_TOG, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, KC_WBAK, WIN_TOG, KC_WFWD, XXXXXXX,    XXXXXXX,    KC_4,    KC_5,    KC_6, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, KC_BNAV, XXXXXXX, KC_FNAV, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, KC_BNAV, XXXXXXX, KC_FNAV, XXXXXXX,    XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  _______, _______, XXXXXXX,    _______, XXXXXXX,
+                                  _______, _______, XXXXXXX,    _______,    KC_0,
                                            _______, _______,    XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
@@ -132,12 +135,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    XXXXXXX, XXXXXXX,   MS_UP, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, MS_BTN2, MS_BTN1, XXXXXXX,    XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, MS_ACL0, MS_ACL1, MS_ACL2, XXXXXXX,    XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, _______, DRGSCRL, SNIPING, XXXXXXX, XXXXXXX,    MS_WHLL, MS_WHLR, XXXXXXX, XXXXXXX, _______, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  XXXXXXX, KC_BTN1, KC_BTN2,    MS_WHLU, XXXXXXX,
-                                           KC_WBAK, KC_WFWD,    MS_WHLD
+                                  KC_BTN3, KC_BTN1, KC_BTN2,    MS_WHLU, XXXXXXX,
+                                           CMD_CLK, ALT_CLK,    MS_WHLD
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 };

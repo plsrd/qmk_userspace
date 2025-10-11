@@ -39,15 +39,9 @@
 #define DOUBLE_TAP_SHIFT_TIMEOUT 250
 #define CHARYBDIS_DRAGSCROLL_REVERSE_Y
 
-#define MOUSEKEY_DELAY            0
-#define MOUSEKEY_INTERVAL         12   // lower = faster updates (default ~16)
-#define MOUSEKEY_MOVE_DELTA       8    // pixels per step
-#define MOUSEKEY_MAX_SPEED        12   // higher cap
-#define MOUSEKEY_TIME_TO_MAX      20   // reach max speed quicker
+#define MOUSEKEY_DELAY              0
+#define MOUSEKEY_INTERVAL           14   // between 12 (fast) and ~16 (default)
+#define MOUSEKEY_MOVE_DELTA         6    // between 8 (fast) and ~5 (default)
+#define MOUSEKEY_MAX_SPEED          11   // between 12 and ~10
+#define MOUSEKEY_TIME_TO_MAX        30   // between 20 and ~40
 
-// Wheel speed (optional)
-#define MOUSEKEY_WHEEL_DELAY      0
-#define MOUSEKEY_WHEEL_INTERVAL   30
-#define MOUSEKEY_WHEEL_MAX_SPEED  12
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 20
-#define MOUSEKEY_WHEEL_DELTA      2
