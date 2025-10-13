@@ -249,7 +249,6 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  tap_dance_action_t *action;
 
   switch (keycode) {
     case SS_ARRW:
