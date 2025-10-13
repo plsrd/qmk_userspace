@@ -27,6 +27,8 @@
 #ifdef TAP_DANCE_ENABLE
 enum {
     TD_C = 0,
+    TD_V,
+    TD_K
 };
 #endif
 
@@ -77,6 +79,10 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define KC_RCST A(KC_SPC)
 #define KC_SEND G(KC_ENT)
 
+#define TAP_C TD(TD_C)
+#define TAP_V TD(TD_V)
+#define TAP_K TD(TD_K)
+
 
 #define KC_BNAV G(KC_LBRC)
 #define KC_FNAV G(KC_RBRC)
@@ -102,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
          MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_LSFT,    MT_Z,    MT_X,TD(TD_C),    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_LGUI,
+       KC_LSFT,    MT_Z,    MT_X,   TAP_C,   TAP_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_LGUI,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                    PT_BSPC, PT_DEL,  KC_LGUI,   KC_ENT,  KC_SPC,
                                            MS_BTN1,  MS_BTN2,   KC_MCTL
@@ -237,6 +243,8 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_C] = ACTION_TAP_DANCE_TAP_HOLD(KC_C, LGUI(KC_C)),
+    [TD_V] = ACTION_TAP_DANCE_TAP_HOLD(KC_V, LGUI(KC_V)),
+    [TD_K] = ACTION_TAP_DANCE_TAP_HOLD(KC_K, LGUI(KC_K)),
 
 };
 
@@ -259,12 +267,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("||");
       }
       return false; //
-    case TD(TD_C): // list all tap dance keycodes with tap-hold configurations
-            action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-            if (!record->event.pressed && action->state.count && !action->state.finished) {
-                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-                tap_code16(tap_hold->tap);
-            }
     default:
       return true; // Process all other keycodes normally
   }
