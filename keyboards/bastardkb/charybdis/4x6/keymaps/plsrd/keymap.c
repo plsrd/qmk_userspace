@@ -20,6 +20,16 @@
 #    include "timer.h"
 #endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
+#ifdef TAP_DANCE_ENABLE
+#    include "process_tap_dance.h"
+#endif
+
+#ifdef TAP_DANCE_ENABLE
+enum {
+    TD_C = 0,
+};
+#endif
+
 enum charybdis_keymap_layers {
     LAYER_BASE = 0,
     LAYER_SYMBOL,
