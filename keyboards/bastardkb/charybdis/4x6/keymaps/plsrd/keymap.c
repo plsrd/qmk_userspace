@@ -48,14 +48,12 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
 #endif     // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
-#define LOWER MO(LAYER_SYMBOL)
-#define RAISE MO(LAYER_NAV)
-#define PT_Z LT(LAYER_POINTER, KC_Z)
+#define MT_Z LCTL_T(KC_Z)
+#define MT_X LALT_T(KC_X)
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
 #define PT_DEL LT(LAYER_NAV, KC_DEL)
-#define MT_ENT LGUI_T(KC_ENT)
-#define MT_CLIK LALT_T(KC_BTN2)
+#define MOUSE MO(LAYER_POINTER)
 
 #define OPT_L A(KC_LEFT) // MOVE CURSOR TO BEGINNING OF WORD
 #define OPT_R A(KC_RIGHT) // MOVE CURSOR TO END OF WORD
@@ -92,12 +90,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
         KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+         MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_LSFT,    PT_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
+       KC_LSFT,    MT_Z,    MT_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_LGUI,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                   MT_ENT, PT_BSPC,  PT_DEL,     KC_ENT,  KC_SPC,
-                                           MT_CLIK, MS_BTN1,    KC_LGUI
+                                   PT_BSPC, PT_DEL,  KC_LGUI,   KC_ENT,  KC_SPC,
+                                           MS_BTN1,  MT_CLIK,   KC_MCTL
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
