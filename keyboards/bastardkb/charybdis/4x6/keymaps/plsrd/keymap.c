@@ -32,6 +32,8 @@ enum {
 };
 #endif
 
+#define SCREENSAVE_DELAY 120000  //configure how long to wait after last activity. 120000ms = 2 mins
+
 enum charybdis_keymap_layers {
     LAYER_BASE = 0,
     LAYER_SYMBOL,
@@ -42,7 +44,8 @@ enum charybdis_keymap_layers {
 enum my_keycodes {
   SS_ARRW = SAFE_RANGE,
   SS_FUNC,
-  SS_PIPE
+  SS_PIPE,
+  NO_SLEEP
 };
 
 /** \brief Automatically enable sniping-mode on the pointer layer. */
@@ -248,8 +251,15 @@ tap_dance_action_t tap_dance_actions[] = {
 
 };
 
+
+bool stop_screensaver = false;     //screensaver mode status
+uint32_t last_activity_timer = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   tap_dance_action_t *action;
+
+  if (record->event.pressed)
+    stop_screensaver = false;  //turn off screensaver mode on any keypress
 
   switch (keycode) {
     case SS_ARRW:
@@ -288,10 +298,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           tap_code16(tap_hold->tap);
       }
       return true;
+    case NO_SLEEP:
+            if (record->event.pressed) {               //if NO_SLEEP is pressed
+                stop_screensaver = true;               //turn on screensaver mode
+                last_activity_timer = timer_read32();  //reset timer
+            }
+            break;
     default:
       return true; // Process all other keycodes normally
   }
   return true;
+}
+
+void matrix_scan_user(void) {
+    if (stop_screensaver) {                                             //if screensaver mode is active
+        if (timer_elapsed32(last_activity_timer) > SCREENSAVE_DELAY) {  //and no key has been pressed in more than SCREENSAVE_DELAY ms
+            tap_code16(KC_F13);                                         //  tap F13
+            last_activity_timer = timer_read32();                       //  reset last_activity_timer
+        }
+    }
 }
 
 
