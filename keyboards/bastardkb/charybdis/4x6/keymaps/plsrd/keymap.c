@@ -157,9 +157,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, ALT_CLK, CMD_CLK, DPI_MOD, S_D_MOD,    XXXXXXX, XXXXXXX,   MS_UP, XXXXXXX, XXXXXXX, NO_SLEEP,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, XXXXXXX, MS_BTN4, MS_BTN3, MS_BTN1, MS_BTN2,    XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX,
+       _______, DRGSCRL, MS_BTN4, MS_BTN3, MS_BTN1, MS_BTN2,    XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, DRGSCRL, XXXXXXX, SNIPING, XXXXXXX, XXXXXXX,    MS_WHLL, MS_WHLR, XXXXXXX, XXXXXXX, _______, AC_TOGG,
+       _______, XXXXXXX, XXXXXXX, SNIPING, XXXXXXX, XXXXXXX,    MS_WHLL, MS_WHLR, XXXXXXX, XXXXXXX, _______, AC_TOGG,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_BTN3, KC_BTN1, KC_BTN2,    MS_WHLU, XXXXXXX,
                                            CMD_CLK, ALT_CLK,    MS_WHLD
