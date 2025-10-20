@@ -45,6 +45,7 @@ enum my_keycodes {
   SS_ARRW = SAFE_RANGE,
   SS_FUNC,
   SS_PIPE,
+  SS_PASS,
   NO_SLEEP
 };
 
@@ -126,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, SS_PIPE, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
+       _______, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   _______, _______, _______,    KC_SEND, KC_RCST,
                                            _______, XXXXXXX,    _______
@@ -141,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, KC_WBAK, WIN_TOG, KC_WFWD, XXXXXXX,    XXXXXXX,    KC_4,    KC_5,    KC_6, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, KC_BNAV, XXXXXXX, KC_FNAV, XXXXXXX,    XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
+       SS_PASS, XXXXXXX, KC_BNAV, XXXXXXX, KC_FNAV, XXXXXXX,    XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   _______, _______, XXXXXXX,    _______,    KC_0,
                                            _______, _______,    XXXXXXX
@@ -275,6 +276,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SS_PIPE:
       if (record->event.pressed) {
         SEND_STRING("||");
+      }
+      return false; //
+    case SS_PASS:
+      if (record->event.pressed) {
+        SEND_STRING("d!os.apate.minor9");
       }
       return false; //
     case TD(TD_C): // list all tap dance keycodes with tap-hold configurations
