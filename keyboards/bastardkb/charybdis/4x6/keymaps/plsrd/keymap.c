@@ -66,6 +66,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 
 #define MT_Z LCTL_T(KC_Z)
 #define MT_X LALT_T(KC_X)
+#define MT_ENT LGUI_T(KC_ENT)
+#define MT_MCTL LSFT_T(KC_MCTL)
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
 #define PT_DEL LT(LAYER_NAV, KC_DEL)
@@ -112,10 +114,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
          MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,   TAP_K,    KC_L, KC_SCLN, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_LSFT,    MT_Z,    MT_X,   TAP_C,   TAP_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_LGUI,
+       KC_LSFT,    MT_Z,    MT_X,   TAP_C,   TAP_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                   PT_BSPC, PT_DEL,  KC_LGUI,   KC_ENT,  KC_SPC,
-                                           MS_BTN1,  MS_BTN2,   KC_MCTL
+                                   PT_BSPC, PT_DEL,  MT_ENT,   KC_ENT,  KC_SPC,
+                                           MS_BTN1,  MS_BTN2,  MT_MCTL
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -153,11 +155,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        QK_BOOT,  EE_CLR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,  EE_CLR,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    XXXXXXX, XXXXXXX,   MS_UP, XXXXXXX, XXXXXXX, NO_SLEEP,
+       XXXXXXX, XXXXXXX, ALT_CLK, CMD_CLK, DPI_MOD, S_D_MOD,    XXXXXXX, XXXXXXX,   MS_UP, XXXXXXX, XXXXXXX, NO_SLEEP,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, DRGSCRL, MS_ACL0, MS_ACL1, MS_ACL2, XXXXXXX,    XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX,
+       _______, XXXXXXX, MS_BTN4, MS_BTN3, MS_BTN1, MS_BTN2,    XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, _______, DRGSCRL, SNIPING, XXXXXXX, XXXXXXX,    MS_WHLL, MS_WHLR, XXXXXXX, XXXXXXX, _______, XXXXXXX,
+       _______, DRGSCRL, XXXXXXX, SNIPING, XXXXXXX, XXXXXXX,    MS_WHLL, MS_WHLR, XXXXXXX, XXXXXXX, _______, AC_TOGG,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_BTN3, KC_BTN1, KC_BTN2,    MS_WHLU, XXXXXXX,
                                            CMD_CLK, ALT_CLK,    MS_WHLD
@@ -324,5 +326,3 @@ void matrix_scan_user(void) {
         }
     }
 }
-
-
