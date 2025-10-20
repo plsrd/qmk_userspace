@@ -37,7 +37,6 @@
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 #define DOUBLE_TAP_SHIFT_TIMEOUT 250
-#define CHARYBDIS_DRAGSCROLL_REVERSE_Y
 
 #define MOUSEKEY_DELAY              0
 #define MOUSEKEY_INTERVAL           14   // between 12 (fast) and ~16 (default)
