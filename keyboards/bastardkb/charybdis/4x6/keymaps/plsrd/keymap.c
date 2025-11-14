@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_LSFT,    MT_Z,    MT_X,   TAP_C,   TAP_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  PT_BSPC,  PT_DEL,  MT_TAB,      KC_ENT,  KC_SPC,
+                                  PT_BSPC,  PT_DEL,  MT_ENT,      KC_ENT,  KC_SPC,
                                            MS_BTN1, DRGSCRL,      MT_MCTL
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        CW_TOGG, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, SS_PIPE, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_SCLN, KC_QUOT, KC_LABK, KC_RABK, XXXXXXX,    WORK,
+       _______, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_SCLN, KC_QUOT, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   _______, _______, _______,    KC_SEND, KC_RCST,
                                            _______, XXXXXXX,    _______
@@ -302,7 +302,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false; //
     case SS_PASS:
       if (record->event.pressed) {
-        SEND_STRING("d!os.apate.minor8");
+        SEND_STRING("D!os.apate.minor8");
       }
       return false; //
     case TD(TD_C): // list all tap dance keycodes with tap-hold configurations
