@@ -118,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
         KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,   TAP_K,    KC_L, KC_SCLN, KC_QUOT,
+         MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,   TAP_K,    KC_L, KC_SCLN, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         MOUSE,    MT_Z,    MT_X,   TAP_C,   TAP_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
+       KC_LSFT,    MT_Z,    MT_X,   TAP_C,   TAP_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   PT_BSPC,  PT_DEL,  MT_TAB,      KC_ENT,  KC_SPC,
                                            MS_BTN1, DRGSCRL,      MT_MCTL
