@@ -38,7 +38,8 @@ enum charybdis_keymap_layers {
     LAYER_BASE = 0,
     LAYER_SYMBOL,
     LAYER_NAV,
-    LAYER_POINTER
+    LAYER_POINTER,
+    LAYER_WORK
 };
 
 enum my_keycodes {
@@ -67,6 +68,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define MT_Z LCTL_T(KC_Z)
 #define MT_X LALT_T(KC_X)
 #define MT_TAB LGUI_T(KC_TAB)
+#define MT_ENT LGUI_T(KC_ENT)
 #define MT_MCTL LSFT_T(KC_MCTL)
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
@@ -82,19 +84,23 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define KC_CNSL LAG(KC_K) // OPEN FIREFOX TERMINAL
 #define KC_SALL C(S(KC_L)) // SELECT ALL INSTANCES OF SELECTION
 #define KC_RELD LSG(KC_R) // HARD REFRESH IN BROWSER
-#define KC_RCST A(KC_SPC)
-#define KC_SEND G(KC_ENT)
+#define KC_RCST A(KC_SPC) // OPEN RAYCAST
+#define KC_SEND G(KC_ENT) // SEND CURRENT
 
 #define TAP_C TD(TD_C)
 #define TAP_V TD(TD_V)
 #define TAP_K TD(TD_K)
 
 
-#define KC_BNAV G(KC_LBRC)
+#define KC_BNAV G(KC_LBRC) //
 #define KC_FNAV G(KC_RBRC)
+#define KC_FFWD G(KC_RGHT) //FIREFOX FORWARD
+#define KC_FBCK G(KC_LEFT) //FIREFOX BACK
 #define WIN_TOG G(KC_TAB)
 #define CMD_CLK G(KC_BTN1)
 #define ALT_CLK A(KC_BTN1)
+#define WORK TT(LAYER_WORK)
+
 
 
 #ifndef POINTING_DEVICE_ENABLE
@@ -129,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        CW_TOGG, KC_LSTR, KC_LEFT, KC_DOWN, KC_RGHT, KC_LEND,    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, SS_PIPE, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_SCLN, KC_QUOT, KC_LABK, KC_RABK, XXXXXXX, XXXXXXX,
+       _______, XXXXXXX, KC_SALL, KC_CPDN,  KC_TERM, KC_CNSL,   KC_SCLN, KC_QUOT, KC_LABK, KC_RABK, XXXXXXX,    WORK,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   _______, _______, _______,    KC_SEND, KC_RCST,
                                            _______, XXXXXXX,    _______
@@ -142,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, KC_WBAK, WIN_TOG, KC_WFWD, XXXXXXX,    XXXXXXX,    KC_4,    KC_5,    KC_6, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, KC_FBCK, WIN_TOG, KC_FFWD, XXXXXXX,    XXXXXXX,    KC_4,    KC_5,    KC_6, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        SS_PASS, XXXXXXX, KC_BNAV, XXXXXXX, KC_FNAV, XXXXXXX,    XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -157,12 +163,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, ALT_CLK, CMD_CLK, DPI_MOD, S_D_MOD,    XXXXXXX, XXXXXXX,   MS_UP, XXXXXXX, XXXXXXX, NO_SLEEP,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, DRGSCRL, MS_BTN4, MS_BTN3, MS_BTN1, MS_BTN2,    XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX,
+       _______, DRGSCRL, MS_BTN3, MS_BTN2, MS_BTN1, XXXXXXX,    XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        _______, XXXXXXX, XXXXXXX, SNIPING, XXXXXXX, XXXXXXX,    MS_WHLL, MS_WHLR, XXXXXXX, XXXXXXX, _______, AC_TOGG,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_BTN3, KC_BTN1, KC_BTN2,    MS_WHLU, XXXXXXX,
                                            CMD_CLK, ALT_CLK,    MS_WHLD
+  //                            ╰───────────────────────────╯ ╰──────────────────╯
+  ),
+  [LAYER_WORK] = LAYOUT(
+  // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
+        KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
+        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
+  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
+         MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,   TAP_K,    KC_L, KC_SCLN, KC_QUOT,
+  // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
+      KC_LSFT,    MT_Z,    MT_X,   TAP_C,   TAP_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
+  // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
+                                  PT_BSPC,  PT_DEL,  MT_ENT,      KC_ENT,  KC_SPC,
+                                           MS_BTN1, DRGSCRL,      MT_MCTL
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 };
@@ -282,7 +302,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false; //
     case SS_PASS:
       if (record->event.pressed) {
-        SEND_STRING("d!os.apate.minor9");
+        SEND_STRING("d!os.apate.minor8");
       }
       return false; //
     case TD(TD_C): // list all tap dance keycodes with tap-hold configurations
