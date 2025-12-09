@@ -36,7 +36,6 @@
 #endif // POINTING_DEVICE_ENABLE
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-#define DOUBLE_TAP_SHIFT_TIMEOUT 250
 
 #define MOUSEKEY_DELAY              0
 #define MOUSEKEY_INTERVAL           14   // between 12 (fast) and ~16 (default)
