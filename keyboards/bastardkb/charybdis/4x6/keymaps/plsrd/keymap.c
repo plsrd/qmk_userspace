@@ -20,18 +20,6 @@
 #    include "timer.h"
 #endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
-#ifdef TAP_DANCE_ENABLE
-#    include "process_tap_dance.h"
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-enum {
-    TD_C = 0,
-    TD_V,
-    TD_K
-};
-#endif
-
 #define SCREENSAVE_DELAY 120000  //configure how long to wait after last activity. 120000ms = 2 mins
 
 enum charybdis_keymap_layers {
