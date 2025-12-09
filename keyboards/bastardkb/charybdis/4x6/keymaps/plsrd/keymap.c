@@ -57,6 +57,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define MT_X LALT_T(KC_X)
 #define MT_TAB LGUI_T(KC_TAB)
 #define MT_ENT LGUI_T(KC_ENT)
+#define MT_SPC LSFT_T(KC_SPC)
 #define MT_MCTL LSFT_T(KC_MCTL)
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 #define PT_BSPC LT(LAYER_SYMBOL, KC_BSPC)
@@ -105,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_LSFT,    MT_Z,    MT_X,   KC_C,   KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  PT_BSPC,  PT_DEL,  MT_ENT,      KC_ENT,  KC_SPC,
+                                  PT_BSPC,  PT_DEL,  MT_ENT,      MT_ENT,  MT_SPC,
                                            MS_BTN1, DRGSCRL,      MT_MCTL
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
