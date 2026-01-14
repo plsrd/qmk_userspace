@@ -28,6 +28,11 @@
 #    include "process_tap_dance.h"
 #endif
 
+#ifdef TAP_DANCE_ENABLE
+enum {
+    CT_CLN, // Colon on tap, semicolon on hold
+};
+
 #define SCREENSAVE_DELAY 120000  //configure how long to wait after last activity. 120000ms = 2 mins
 
 enum charybdis_keymap_layers {
