@@ -29,8 +29,9 @@
 #endif
 
 enum {
-    CT_CLN, // Colon on tap, semicolon on hold
+    TD_ESC_CAPS,
 };
+
 
 #define SCREENSAVE_DELAY 120000  //configure how long to wait after last activity. 120000ms = 2 mins
 
