@@ -247,8 +247,8 @@ typedef struct {
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
-    if (state->pressed) {
-        if (state->count == 1
+    if (state->count == 1) {
+        if (state->pressed
 #ifndef PERMISSIVE_HOLD
             && !state->interrupted
 #endif
@@ -256,8 +256,7 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
             register_code16(tap_hold->hold);
             tap_hold->held = tap_hold->hold;
         } else {
-            register_code16(tap_hold->tap);
-            tap_hold->held = tap_hold->tap;
+            tap_code16(tap_hold->tap);
         }
     }
 }
@@ -285,8 +284,6 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  tap_dance_action_t *action;
-
   switch (keycode) {
     case SS_ARRW:
       if (record->event.pressed) {
@@ -314,27 +311,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 last_activity_timer = timer_read32();  //reset timer
             }
             break;
-    case TD(TD_C): // list all tap dance keycodes with tap-hold configurations
-      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-      if (!record->event.pressed && action->state.count && !action->state.finished) {
-          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-          tap_code16(tap_hold->tap);
-      }
-      return true;
-    case TD(TD_V): // list all tap dance keycodes with tap-hold configurations
-      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-      if (!record->event.pressed && action->state.count && !action->state.finished) {
-          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-          tap_code16(tap_hold->tap);
-      }
-      return true;
-    case TD(TD_K): // list all tap dance keycodes with tap-hold configurations
-      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-      if (!record->event.pressed && action->state.count && !action->state.finished) {
-          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-          tap_code16(tap_hold->tap);
-      }
-
     default:
       return true; // Process all other keycodes normally
   }
