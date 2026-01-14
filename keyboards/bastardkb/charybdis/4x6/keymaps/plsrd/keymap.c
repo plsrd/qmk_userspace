@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
         KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    TAP_K,   KC_L, KC_SCLN, KC_QUOT,
+         MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    TAP_K,    KC_L, KC_SCLN, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_LSFT,    MT_Z,    MT_X,    TAP_C,   TAP_V,    KC_B,      KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -236,7 +236,7 @@ void rgb_matrix_update_pwm_buffers(void);
 bool stop_screensaver = false;     //screensaver mode status
 uint32_t last_activity_timer = 0;
 
-//Tap Dance stuff
+//Tap
 
 typedef struct {
     uint16_t tap;
@@ -247,8 +247,8 @@ typedef struct {
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
-    if (state->count == 1) {
-        if (state->pressed
+    if (state->pressed) {
+        if (state->count == 1
 #ifndef PERMISSIVE_HOLD
             && !state->interrupted
 #endif
@@ -256,7 +256,8 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
             register_code16(tap_hold->hold);
             tap_hold->held = tap_hold->hold;
         } else {
-            tap_code16(tap_hold->tap);
+            register_code16(tap_hold->tap);
+            tap_hold->held = tap_hold->tap;
         }
     }
 }
@@ -284,6 +285,11 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  tap_dance_action_t *action;
+
+  if (record->event.pressed)
+    stop_screensaver = false;  //turn off screensaver mode on any keypress
+
   switch (keycode) {
     case SS_ARRW:
       if (record->event.pressed) {
@@ -305,6 +311,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("d!os.apate.minor9");
       }
       return false; //
+    case TD(TD_C): // list all tap dance keycodes with tap-hold configurations
+      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
+      if (!record->event.pressed && action->state.count && !action->state.finished) {
+          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+          tap_code16(tap_hold->tap);
+      }
+      return true;
+    case TD(TD_V): // list all tap dance keycodes with tap-hold configurations
+      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
+      if (!record->event.pressed && action->state.count && !action->state.finished) {
+          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+          tap_code16(tap_hold->tap);
+      }
+      return true;
+    case TD(TD_K): // list all tap dance keycodes with tap-hold configurations
+      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
+      if (!record->event.pressed && action->state.count && !action->state.finished) {
+          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+          tap_code16(tap_hold->tap);
+      }
+      return true;
     case NO_SLEEP:
             if (record->event.pressed) {               //if NO_SLEEP is pressed
                 stop_screensaver = true;               //turn on screensaver mode
@@ -316,6 +343,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
 
 void matrix_scan_user(void) {
     if (stop_screensaver) {                                             //if screensaver mode is active

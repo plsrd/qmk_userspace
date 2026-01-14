@@ -42,4 +42,3 @@
 #define MOUSEKEY_MOVE_DELTA         6    // between 8 (fast) and ~5 (default)
 #define MOUSEKEY_MAX_SPEED          11   // between 12 and ~10
 #define MOUSEKEY_TIME_TO_MAX        30   // between 20 and ~40
-
