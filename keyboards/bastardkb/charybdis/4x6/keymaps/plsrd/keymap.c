@@ -29,7 +29,7 @@
 #endif
 
 enum {
-    TD_ESC_CAPS,
+    TD_ESC_CAPS = 0,
 };
 
 
@@ -97,7 +97,6 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define CMD_CLK G(KC_BTN1)
 #define ALT_CLK A(KC_BTN1)
 #define WORK TT(LAYER_WORK)
-
 
 #ifndef POINTING_DEVICE_ENABLE
 #    define DRGSCRL KC_NO
