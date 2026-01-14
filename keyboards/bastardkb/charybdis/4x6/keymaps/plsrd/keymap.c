@@ -28,14 +28,6 @@
 #    include "process_tap_dance.h"
 #endif
 
-#ifdef TAP_DANCE_ENABLE
-enum {
-    TD_C = 0,
-    TD_V,
-    TD_K
-};
-#endif
-
 #define SCREENSAVE_DELAY 120000  //configure how long to wait after last activity. 120000ms = 2 mins
 
 enum charybdis_keymap_layers {
@@ -92,10 +84,6 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define KC_RCST A(KC_SPC) // OPEN RAYCAST
 #define KC_SEND G(KC_ENT) // SEND CURRENT
 
-#define TAP_C TD(TD_C) //TAP DANCE C & COPY
-#define TAP_V TD(TD_V) //TAP DANCE V & PASTE
-#define TAP_K TD(TD_K) //TAP DANCE K & CUT
-
 #define KC_BNAV G(KC_LBRC) //
 #define KC_FNAV G(KC_RBRC)
 #define KC_FFWD G(KC_RGHT) //FIREFOX FORWARD
@@ -104,6 +92,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define CMD_CLK G(KC_BTN1)
 #define ALT_CLK A(KC_BTN1)
 #define WORK TT(LAYER_WORK)
+
+#define TAP_CLN TD(CT_CLN)
 
 
 
@@ -122,9 +112,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
         KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    TAP_K,    KC_L, KC_SCLN, KC_QUOT,
+         MOUSE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, TAP_CLN, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_LSFT,    MT_Z,    MT_X,    TAP_C,   TAP_V,    KC_B,      KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
+       KC_LSFT,    MT_Z,    MT_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_MCTL,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   PT_BSPC,  PT_DEL,  MT_ENT,      MT_ENT,  MT_SPC,
                                            MS_BTN1, DRGSCRL,      MT_MCTL
@@ -236,8 +226,6 @@ void rgb_matrix_update_pwm_buffers(void);
 bool stop_screensaver = false;     //screensaver mode status
 uint32_t last_activity_timer = 0;
 
-//Tap
-
 typedef struct {
     uint16_t tap;
     uint16_t hold;
@@ -278,14 +266,12 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
     }
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_C] = ACTION_TAP_DANCE_TAP_HOLD(KC_C, LGUI(KC_C)),
-    [TD_V] = ACTION_TAP_DANCE_TAP_HOLD(KC_V, LGUI(KC_V)),
-    [TD_K] = ACTION_TAP_DANCE_TAP_HOLD(KC_K, LGUI(KC_K)),
-
+    [CT_CLN] = ACTION_TAP_DANCE_TAP_HOLD(KC_COLN, KC_SCLN),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   tap_dance_action_t *action;
+  tap_dance_state_t* state;
 
   if (record->event.pressed)
     stop_screensaver = false;  //turn off screensaver mode on any keypress
@@ -311,35 +297,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("d!os.apate.minor9");
       }
       return false; //
-    case TD(TD_C): // list all tap dance keycodes with tap-hold configurations
-      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-      if (!record->event.pressed && action->state.count && !action->state.finished) {
+    case TD(CT_CLN):
+      action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
+      state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
+      if (!record->event.pressed && state != NULL && state->count && !state->finished) {
           tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
           tap_code16(tap_hold->tap);
       }
-      return true;
-    case TD(TD_V): // list all tap dance keycodes with tap-hold configurations
-      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-      if (!record->event.pressed && action->state.count && !action->state.finished) {
-          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-          tap_code16(tap_hold->tap);
-      }
-      return true;
-    case TD(TD_K): // list all tap dance keycodes with tap-hold configurations
-      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-      if (!record->event.pressed && action->state.count && !action->state.finished) {
-          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-          tap_code16(tap_hold->tap);
-      }
-      return true;
     case NO_SLEEP:
             if (record->event.pressed) {               //if NO_SLEEP is pressed
                 stop_screensaver = true;               //turn on screensaver mode
                 last_activity_timer = timer_read32();  //reset timer
             }
             break;
-    default:
-      return true; // Process all other keycodes normally
   }
   return true;
 }
