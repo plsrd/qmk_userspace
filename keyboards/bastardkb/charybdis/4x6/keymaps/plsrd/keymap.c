@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAYER_SYMBOL] = LAYOUT(
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
+       KC_GRV, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX,  KC_GRV,   OPT_L,   KC_UP,   OPT_R, KC_RELD,    KC_LPRN, KC_RPRN, KC_EXLM, SS_ARRW, SS_FUNC, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
@@ -276,9 +276,6 @@ tap_dance_action_t tap_dance_actions[] = {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  tap_dance_action_t *action;
-  tap_dance_state_t* state;
-
   if (record->event.pressed)
     stop_screensaver = false;  //turn off screensaver mode on any keypress
 
@@ -303,14 +300,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("d!os.apate.minor9");
       }
       return false;
-    case TD(CT_CLN):
-      action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
-      state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
-      if (!record->event.pressed && state != NULL && state->count && !state->finished) {
-          tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-          tap_code16(tap_hold->tap);
-      }
-
     case NO_SLEEP:
             if (record->event.pressed) {               //if NO_SLEEP is pressed
                 stop_screensaver = true;               //turn on screensaver mode
